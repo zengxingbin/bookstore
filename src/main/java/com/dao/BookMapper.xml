@@ -1,107 +1,109 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dao.BookMapper" >
-  <resultMap id="BaseResultMap" type="com.domain.Book" >
-    <id column="isbn" property="isbn" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="pnum" property="pnum" jdbcType="INTEGER" />
-    <result column="category" property="category" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="bookCoverPath" property="bookcoverpath" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+<mapper namespace="com.dao.BookMapper">
+    <resultMap id="BaseResultMap" type="com.domain.Book">
+        <id column="isbn" property="isbn" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+        <result column="pnum" property="pnum" jdbcType="INTEGER"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="bookCoverPath" property="bookcoverpath" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     isbn, name, price, pnum, category, description, bookCoverPath
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.domain.BookExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from book
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from book
-    where isbn = #{isbn,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.domain.BookExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from book
+        where isbn = #{isbn,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from book
     where isbn = #{isbn,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.domain.BookExample" >
-    delete from book
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.domain.Book" >
+    <delete id="deleteByExample" parameterType="com.domain.BookExample">
+        delete from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.domain.Book">
     insert into book (isbn, name, price, 
       pnum, category, description, 
       bookCoverPath)
@@ -109,128 +111,128 @@
       #{pnum,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{bookcoverpath,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.domain.Book" >
-    insert into book
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="isbn != null" >
-        isbn,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-      <if test="pnum != null" >
-        pnum,
-      </if>
-      <if test="category != null" >
-        category,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-      <if test="bookcoverpath != null" >
-        bookCoverPath,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="isbn != null" >
-        #{isbn,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="pnum != null" >
-        #{pnum,jdbcType=INTEGER},
-      </if>
-      <if test="category != null" >
-        #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="bookcoverpath != null" >
-        #{bookcoverpath,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.domain.BookExample" resultType="java.lang.Integer" >
-    select count(*) from book
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update book
-    <set >
-      <if test="record.isbn != null" >
-        isbn = #{record.isbn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null" >
+    <insert id="insertSelective" parameterType="com.domain.Book">
+        insert into book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="isbn != null">
+                isbn,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="pnum != null">
+                pnum,
+            </if>
+            <if test="category != null">
+                category,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="bookcoverpath != null">
+                bookCoverPath,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="isbn != null">
+                #{isbn,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="pnum != null">
+                #{pnum,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="bookcoverpath != null">
+                #{bookcoverpath,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.domain.BookExample" resultType="java.lang.Integer">
+        select count(*) from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update book
+        <set>
+            <if test="record.isbn != null">
+                isbn = #{record.isbn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.price != null">
+                price = #{record.price,jdbcType=DOUBLE},
+            </if>
+            <if test="record.pnum != null">
+                pnum = #{record.pnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.category != null">
+                category = #{record.category,jdbcType=VARCHAR},
+            </if>
+            <if test="record.description != null">
+                description = #{record.description,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bookcoverpath != null">
+                bookCoverPath = #{record.bookcoverpath,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update book
+        set isbn = #{record.isbn,jdbcType=VARCHAR},
         name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.price != null" >
         price = #{record.price,jdbcType=DOUBLE},
-      </if>
-      <if test="record.pnum != null" >
         pnum = #{record.pnum,jdbcType=INTEGER},
-      </if>
-      <if test="record.category != null" >
         category = #{record.category,jdbcType=VARCHAR},
-      </if>
-      <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bookcoverpath != null" >
-        bookCoverPath = #{record.bookcoverpath,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update book
-    set isbn = #{record.isbn,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DOUBLE},
-      pnum = #{record.pnum,jdbcType=INTEGER},
-      category = #{record.category,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      bookCoverPath = #{record.bookcoverpath,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.domain.Book" >
-    update book
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="pnum != null" >
-        pnum = #{pnum,jdbcType=INTEGER},
-      </if>
-      <if test="category != null" >
-        category = #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="bookcoverpath != null" >
-        bookCoverPath = #{bookcoverpath,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where isbn = #{isbn,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.domain.Book" >
+        bookCoverPath = #{record.bookcoverpath,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.domain.Book">
+        update book
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="pnum != null">
+                pnum = #{pnum,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                category = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="bookcoverpath != null">
+                bookCoverPath = #{bookcoverpath,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where isbn = #{isbn,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.domain.Book">
     update book
     set name = #{name,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
@@ -240,4 +242,102 @@
       bookCoverPath = #{bookcoverpath,jdbcType=VARCHAR}
     where isbn = #{isbn,jdbcType=VARCHAR}
   </update>
+
+    <select id="queryBook" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from book
+        where isbn = #{isbn,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryBooks" resultMap="BaseResultMap">
+    SELECT * FROM book;
+  </select>
+
+    <select id="queryBooks001" resultMap="BaseResultMap">
+    SELECT * FROM book
+    WHERE isbn = #{isbn}
+    AND `name` = #{name}
+    AND category = #{category}
+    AND price &gt;= #{minPrice}
+    AND price &lt;= #{maxPrice};
+  </select>
+
+    <select id="queryBooks002" resultType="BaseResultMap">
+    SELECT * FROM book
+    LIMIT #{beginIndex},#{resultNumber};
+  </select>
+
+    <select id="queryBooks003" resultType="BaseResultMap">
+    SELECT * FROM book
+    WHERE isbn = #{isbn}
+    AND `name` = #{name}
+    AND category = #{category}
+    AND price &gt;= #{minPrice}
+    AND price &lt;= #{maxPrice}
+    LIMIT #{beginIndex},#{resultNumber};
+  </select>
+
+    <insert id="insertBook" parameterType="com.domain.Book">
+    insert into book (isbn, name, price,
+      pnum, category, description,
+      bookCoverPath)
+    values (#{isbn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},
+      #{pnum,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+      #{bookcoverpath,jdbcType=VARCHAR})
+  </insert>
+
+    <delete id="deleteBook" parameterType="java.lang.String">
+    delete from book
+    where isbn = #{isbn,jdbcType=VARCHAR}
+  </delete>
+
+    <update id="updateBook" parameterType="com.domain.Book">
+    update book
+    set `name` = #{name,jdbcType=VARCHAR},
+    price = #{price,jdbcType=DOUBLE},
+    pnum = #{pnum,jdbcType=INTEGER},
+    category = #{category,jdbcType=VARCHAR},
+    description = #{description,jdbcType=VARCHAR},
+    bookCoverPath = #{bookcoverpath,jdbcType=VARCHAR}
+    where isbn = #{isbn,jdbcType=VARCHAR}
+  </update>
+
+    <update id="updateBooks001" parameterType="java.util.List">
+        <foreach collection="list" item="bk">
+            update book
+            set `name` = #{bk.name,jdbcType=VARCHAR},
+            price = #{bk.price,jdbcType=DOUBLE},
+            pnum = #{bk.pnum,jdbcType=INTEGER},
+            category = #{bk.category,jdbcType=VARCHAR},
+            description = #{bk.description,jdbcType=VARCHAR},
+            bookCoverPath = #{bk.bookcoverpath,jdbcType=VARCHAR}
+            where isbn = #{bk.isbn,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+    <update id="updateBooks002" parameterType="java.util.map">
+        <foreach collection="map" item="entry">
+            UPDATE book SET pnum=pnum+#{entry.getValue()} WHERE isbn=#{entry.getKey()};
+        </foreach>
+    </update>
+
+    <delete id="deleteBooks" parameterType="java.lang.String">
+        delete from book
+        where isbn = #{isbn,jdbcType=VARCHAR};
+    </delete>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from book
+    </select>
+
+    <select id="count001" resultType="java.lang.Integer">
+        SELECT count(*) from book
+        WHERE isbn=#{isbn}
+        AND `name`=#{name}
+        AND category=#{category}
+        AND price &gt;= #{minPrice}
+        AND price &lt;=#{maxPrice}
+    </select>
+
 </mapper>
