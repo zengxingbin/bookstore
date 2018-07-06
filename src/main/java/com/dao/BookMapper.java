@@ -111,7 +111,6 @@ public interface BookMapper {
 
     /**
      *
-     * updateBook(List<OrderItem> orderItems)
      * @param orderItems
      * @throws SQLException
      */
@@ -119,7 +118,6 @@ public interface BookMapper {
 
     /**
      *
-     * updateBook(Map<String, Integer> bookMap) t
      * @param bookMap
      * @throws SQLException
      */
@@ -141,7 +139,6 @@ public interface BookMapper {
     public int count() throws SQLException;
 
     /**
-     * count(String isbn, String name, String category,String minPrice, String maxPrice)
      * 获取图书总数
      * @param isbn
      * @param name
