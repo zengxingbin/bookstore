@@ -365,5 +365,4 @@
     SELECT * FROM `user`
     WHERE username = #{username}
   </select>
-
 </mapper>

@@ -339,5 +339,4 @@
         AND price &gt;= #{minPrice}
         AND price &lt;=#{maxPrice}
     </select>
-
 </mapper>
