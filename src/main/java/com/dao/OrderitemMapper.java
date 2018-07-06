@@ -3,7 +3,11 @@ package com.dao;
 import com.domain.Orderitem;
 import com.domain.OrderitemExample;
 import com.domain.OrderitemKey;
+
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface OrderitemMapper {
@@ -28,4 +32,26 @@ public interface OrderitemMapper {
     int updateByPrimaryKeySelective(Orderitem record);
 
     int updateByPrimaryKey(Orderitem record);
+
+    /**
+     * 添加的订单项
+     * @param orderItems
+     * @throws SQLException
+     */
+    void addOrderItems(List<Orderitem> orderItems) throws SQLException;
+
+    /**
+     *
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    List<Map<String, Object>> findorderItemDaosByOrderId(String id) throws SQLException;
+
+    /**
+     *
+     * @param orderId
+     * @throws SQLException
+     */
+    void deleteOrderItem(String orderId) throws SQLException;
 }

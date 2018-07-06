@@ -320,4 +320,49 @@
       name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="addUser" parameterType="com.domain.User" >
+    insert into user (id, username, PASSWORD,
+    gender, email, telephone,
+    introduce, activeCode, state,
+    role, registTime, name
+    )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    #{gender,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
+    #{introduce,jdbcType=VARCHAR}, #{activecode,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
+    #{role,jdbcType=VARCHAR}, #{registtime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <select id="findUserByActiveCode" parameterType="java.lang.String">
+    SELECT * FROM `user` WHERE activeCode=#{activeCode}
+  </select>
+
+  <update id="activeUser" parameterType="int">
+    UPDATE `user`
+    SET state = 1
+    WHERE id = #{id}
+  </update>
+
+  <select id="findUserByUserNameAndPassword">
+    SELECT * FROM USER WHERE username=#{username} AND PASSWORD=#{password}
+  </select>
+
+  <update id="modifyUserInfo" parameterType="com.domain.User">
+    UPDATE `user` SET
+    PASSWORD=#{loginUser.password},
+    gender=#{loginUser.gender},
+    telephone=#{loginUser.telephone}
+    WHERE id=#{loginUser.id}
+  </update>
+
+  <select id="findUserByEmail" parameterType="java.lang.String" resultType="com.domain.User">
+    SELECT * FROM `user`
+    WHERE email = #{email}
+  </select>
+
+  <select id="findUserByUsername" parameterType="java.lang.String" resultType="com.domain.User">
+    SELECT * FROM `user`
+    WHERE username = #{username}
+  </select>
 </mapper>

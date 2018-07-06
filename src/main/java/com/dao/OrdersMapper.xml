@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dao.OrdersMapper" >
@@ -254,5 +255,37 @@
       ordertime = #{ordertime,jdbcType=TIMESTAMP},
       user_id = #{userId,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="addOder" parameterType="com.domain.Orders" >
+    insert into orders (id, money, receiverAddress,
+    receiverName, receiverPhone, paystate,
+    ordertime, user_id)
+    values (#{id,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{receiveraddress,jdbcType=VARCHAR},
+    #{receivername,jdbcType=VARCHAR}, #{receiverphone,jdbcType=VARCHAR}, #{paystate,jdbcType=INTEGER},
+    #{ordertime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER})
+  </insert>
+
+  <select id="findOrdersByUserId" parameterType="int" resultType="com.domain.Orders">
+    SELECT * FROM orders
+    WHERE user_id = #{id}
+  </select>
+
+  <select id="findOrderByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteOrder" parameterType="java.lang.String" >
+    delete from orders
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="modifyOrderPaystate" >
+    UPDATE orders
+    SET patstate = #{paystate}
+    WHERE id = #{orderId}
   </update>
 </mapper>

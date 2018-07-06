@@ -178,4 +178,23 @@
     where order_id = #{orderId,jdbcType=VARCHAR}
       and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
   </update>
+
+
+  <insert id="addOrderItems" parameterType="java.util.List">
+    INSERT INTO orderitem VALUES(buynum)
+    <foreach collection="list" item="item">
+      (#{bookInfo},#{bookIsbn},#{buynum})
+    </foreach>
+  </insert>
+
+  <select id="findorderItemDaosByOrderId" parameterType="java.lang.String" resultType="java.util.HashMap">
+    SELECT book_isbn, buynum
+    FROM orderitem
+    WHERE order_id=#{id}
+  </select>
+
+  <delete id="deleteOrderItem" parameterType="java.lang.String">
+    DELETE FROM orderitem
+    WHERE order_id=#{orderId}
+  </delete>
 </mapper>
