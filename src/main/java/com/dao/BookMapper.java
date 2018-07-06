@@ -150,4 +150,6 @@ public interface BookMapper {
      */
     public int count001(@Param("isbn")String isbn, @Param("name")String name, @Param("category")String category,
                      @Param("minPrice")String minPrice, @Param("maxPrice")String maxPrice) throws SQLException;
+
+
 }
