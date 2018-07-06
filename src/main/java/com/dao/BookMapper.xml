@@ -263,12 +263,12 @@
     AND price &lt;= #{maxPrice};
   </select>
 
-    <select id="queryBooks002" resultType="BaseResultMap">
+    <select id="queryBooks002" resultMap="BaseResultMap">
     SELECT * FROM book
     LIMIT #{beginIndex},#{resultNumber};
   </select>
 
-    <select id="queryBooks003" resultType="BaseResultMap">
+    <select id="queryBooks003" resultMap="BaseResultMap">
     SELECT * FROM book
     WHERE isbn = #{isbn}
     AND `name` = #{name}
