@@ -8,6 +8,25 @@ public class Orderitem extends OrderitemKey {
 
     private String orderId;
 
+    private Orders orders;    // 订单
+    private Book book;      // 商品
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders order) {
+        this.orders = order;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     public Integer getBuynum() {
         return buynum;
     }

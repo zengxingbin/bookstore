@@ -1,6 +1,7 @@
 package com.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Orders {
     private String id;
@@ -18,6 +19,25 @@ public class Orders {
     private Date ordertime;
 
     private Integer userId;
+
+    public List<Orderitem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<Orderitem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private List<Orderitem> orderItems;
+    private User user;
 
     public String getId() {
         return id;
