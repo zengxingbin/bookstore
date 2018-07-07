@@ -20,6 +20,9 @@ public class Orders {
 
     private Integer userId;
 
+    private List<Orderitem> orderItems;
+    private User user;
+
     public List<Orderitem> getOrderItems() {
         return orderItems;
     }
@@ -35,9 +38,6 @@ public class Orders {
     public void setUser(User user) {
         this.user = user;
     }
-
-    private List<Orderitem> orderItems;
-    private User user;
 
     public String getId() {
         return id;
