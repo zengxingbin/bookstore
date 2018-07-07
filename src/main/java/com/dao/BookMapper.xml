@@ -316,7 +316,7 @@
         </foreach>
     </update>
 
-    <update id="updateBooks002" parameterType="java.util.map">
+    <update id="updateBooks002" parameterType="java.util.Map">
         <foreach collection="map" item="entry">
             UPDATE book SET pnum=pnum+#{entry.getValue()} WHERE isbn=#{entry.getKey()};
         </foreach>
