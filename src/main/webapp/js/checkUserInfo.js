@@ -57,7 +57,7 @@ function checkEmail(obj, appPath) {
 				} 
 			};
 			// 建立与服务器的异步连接
-			var url = appPath + "/user?action=checkEmail&email=" + obj.value;
+			var url = appPath + "/user/checkEmail.do?email=" + obj.value;
 			xmlhttp.open("get", url);
 			xmlhttp.send(null);
 		} else {
@@ -104,7 +104,7 @@ function checkUsername(obj, appPath) {
 				} 
 			};
 			// 建立与服务器的异步连接
-			var url = appPath + "/user?action=checkUserName&username=" + obj.value;
+			var url = appPath + "/user/checkUsername.do?username=" + obj.value;
 			xmlhttp.open("get", url);
 			xmlhttp.send(null);
 		} else {
@@ -169,7 +169,7 @@ function checkvalidateCode(obj, appPath) {
 		};
 		
 		// 建立与服务器的异步连接
-		var url = appPath + "/checkvalidatecode?userInputValidateCode=" + obj.value;
+		var url = appPath + "/kaptcha/checkvalidatecode.do?userInputValidateCode=" + obj.value;
 		xmlhttp.open("get", url);
 		xmlhttp.send(null);		
 	}

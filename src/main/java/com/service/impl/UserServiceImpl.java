@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     public void register(User newUser) throws UserException {
         try {
             userMapper.addUser(newUser);
-            String emailMsg = "注册成功,请<a href = 'http://localhost:8080/bookstore/user/activeUser.do?activeCode=\"+ user.getActiveCode()+\"'>激活</a>后登录";
+            String emailMsg = "注册成功,请<a href = 'http://localhost:8080/bookstore/user/activeUser.do?activeCode="+newUser.getActivecode()+"'>激活</a>后登录";
             SendJMail.sendMail(newUser.getEmail(), emailMsg );
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -30,7 +30,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public void activerUser(String activeCode) throws UserException {
-        // TODO Auto-generated method stub
+        try {
+            User user = userMapper.findUserByActiveCode(activeCode);
+            if(user != null)
+                userMapper.activeUser(user.getId());
+            else 
+                throw new UserException("用户激活失败");
+        } catch (SQLException e) {
+            throw new UserException("用户激活失败");
+        }
         
     }
 
@@ -45,13 +53,25 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findUserByEmail(String email) throws UserException {
-        // TODO Auto-generated method stub
-        return null;
+        User user = null;
+        try {
+            user = userMapper.findUserByEmail(email);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return user;
     }
 
     public User findUserByUsername(String username) throws UserException {
-        // TODO Auto-generated method stub
-        return null;
+        User user = null;
+        try {
+            user = userMapper.findUserByUsername(username);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return user;
     }
     
 

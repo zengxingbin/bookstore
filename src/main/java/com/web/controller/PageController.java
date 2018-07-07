@@ -19,4 +19,16 @@ public class PageController {
     public String toRegisterSuccess() {
         return "registersuccess";
     }
+    @RequestMapping("test")
+    public String toTest() {
+        return "test";
+    }
+    @RequestMapping("activesuccess")
+    public String toActiveSuccess() {
+        return "activesuccess";
+    }
+    @RequestMapping("login")
+    public String toLogin() {
+        return "login";
+    }
 }
