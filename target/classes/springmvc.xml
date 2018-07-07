@@ -30,7 +30,7 @@
 	<!-- 配置视图解析器 解析出真正的物理视图 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/admin/"></property>
+		<property name="prefix" value="/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
@@ -68,4 +68,9 @@
             </bean>  
         </property>  
     </bean>
+    <!-- 处理静态资源 -->
+    <!-- <mvc:default-servlet-handler/> -->
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:resources mapping="/js/**" location="/js/" />
 </beans>

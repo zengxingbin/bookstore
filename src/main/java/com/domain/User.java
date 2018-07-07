@@ -122,4 +122,17 @@ public class User {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("User [id=").append(id).append(", username=").append(username).append(", password=")
+                .append(password).append(", gender=").append(gender).append(", email=").append(email)
+                .append(", telephone=").append(telephone).append(", introduce=").append(introduce)
+                .append(", activecode=").append(activecode).append(", state=").append(state).append(", role=")
+                .append(role).append(", registtime=").append(registtime).append(", name=").append(name).append("]");
+        return builder.toString();
+    }
+    
+    
 }

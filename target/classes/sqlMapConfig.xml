@@ -6,9 +6,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!--  类型别名 -->
 	<typeAliases>
 		<!-- 只对一个类，天价类型别名 -->
-		<!--<typeAlias type="mybatis.po.User" alias="user"/> -->
-		<!-- 对某一个包中的类批量产生别名批量产 生别名  默认别名为类名，不区分大小写-->
-		<package name="com.domain"/>
+		<!-- <typeAlias type="mybatis.po.User" alias="user"/> -->
+		<!-- 对某一个包中的类批量产生别名批量产 生别名  默认别名为类名，不区分大小写 -->
+		<!-- <package name="com.domain"/> -->
 	</typeAliases>
 	
 

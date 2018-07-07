@@ -322,12 +322,12 @@
   </update>
 
   <insert id="addUser" parameterType="com.domain.User" >
-    insert into user (id, username, PASSWORD,
+    insert into user (username, PASSWORD,
     gender, email, telephone,
     introduce, activeCode, state,
     role, registTime, name
     )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
     #{gender,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
     #{introduce,jdbcType=VARCHAR}, #{activecode,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
     #{role,jdbcType=VARCHAR}, #{registtime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}

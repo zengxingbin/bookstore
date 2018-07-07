@@ -7,16 +7,17 @@
 
 <title>bookStore注册页面</title>
 <%--导入css --%>
-<link rel="stylesheet" href="css/main.css" type="text/css" />
-<script src="js/my.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" type="text/css" />
+<script src="${pageContext.request.contextPath}/js/my.js"></script>
 <script type="text/javascript">
 	var judge = new Boolean(true);
+	var validateCodeStatus = new Boolean(true);
 	function clearTip() {
         var validateCodeMsg =window.document.getElementById("validateCodeMsg");
         validateCodeMsg.innerHTML = "";
     }
 	function changeImage() {
-	    document.getElementById("inputid5").value="";
+	    document.getElementById("validateId").value="";
 	    clearTip();
 		document.getElementById("img").src = "${pageContext.request.contextPath}/kaptcha/imageCode.do?time="
 				+ new Date().getTime();
@@ -61,7 +62,7 @@
 			xhr.onreadystatechange = function() {
 				if(xhr.readyState == 4) 
 					if(xhr.status == 200) {
-						if(xhr.responseText == "true") {
+						if(xhr.responseText == "false") {
 							font.innerHTML = "邮箱已经被注册！";
 							font.color = "orange";
 							judge = false;
@@ -74,7 +75,7 @@
 					}
 			}
 			//创建连接
-			xhr.open("get","${pageContext.request.contextPath}/user?method=findUserByEmail&email=" + input.value);
+			xhr.open("get","${pageContext.request.contextPath}/user/checkEmail.do?email=" + input.value);
 			//发送请求
 			xhr.send(null);
 		}
@@ -109,7 +110,7 @@
 			xhr.onreadystatechange = function() {
 				if(xhr.readyState == 4) 
 					if(xhr.status == 200) {
-						if(xhr.responseText == "true") {
+						if(xhr.responseText == "false") {
 							font.innerHTML = "用户名已经被注册！";
 							font.color = "orange";
 							judge = false;
@@ -122,7 +123,7 @@
 					}
 			}
 			//创建连接
-			xhr.open("get","${pageContext.request.contextPath}/user?method=findUserByName&name=" + input.value);
+			xhr.open("get","${pageContext.request.contextPath}/user/checkUsername.do?username=" + input.value);
 			//发送请求
 			xhr.send(null);
 		}
@@ -180,8 +181,16 @@
 		}
 			
 	}
-	function checkvalidateCode(obj) {
+	function checkvalidateCode(obj,submit) {
 	    var validateCodeMsg =window.document.getElementById("validateCodeMsg");
+	    var obj = document.getElementById("validateId");
+	    if("" == obj.value) {
+            if(submit == "submit") {
+            	validateCodeMsg.innerHTML = "<font color='red'>请填写验证码!</font>";
+            }
+            validateCodeStatus = false;
+            return;
+        }
 	    if(obj.value != "") {
 	        var xmlhttp = getXMLHttpRequest();
 	        xmlhttp.onreadystatechange = function() {
@@ -192,9 +201,10 @@
 	                        validateCodeStatus = true;
 	                    } else {
 	                        validateCodeMsg.innerHTML = "<font color='red'>验证码错误</font>";
+	                        validateCodeStatus = false;
 	                    }
 	                } else {
-	                    alert("服务器繁忙，请稍后注册！（状态码：" + xmlhttp.status + "）");
+	                    /* alert("服务器繁忙，请稍后注册！（状态码：" + xmlhttp.status + "）"); */
 	                }               
 	            }
 	        };
@@ -215,10 +225,11 @@
 			checkUserName(submit);
 			judge = false;
 		}
-		if(judge & checkPassword(submit) & checkRepassword(submit)) {
+		checkvalidateCode(null,submit);
+		if(judge & checkPassword(submit) & checkRepassword(submit) & validateCodeStatus) {
 		
 			return true; 
-			}
+		}
 		return false;
 		
 	}
@@ -232,7 +243,7 @@
 	<%@include file="menu_search.jsp"%><%--导入导航条与搜索 --%>
 
 	<div id="divcontent">
-		<form action="${pageContext.request.contextPath}/user?method=regist"
+		<form action="${pageContext.request.contextPath}/user/register.do"
 			method="post" onsubmit = "return checkAll('submit')">
 			<table width="850px" border="0" cellspacing="0">
 				<tr>
@@ -250,7 +261,7 @@
 							<tr>
 								<td style="text-align:right">会员名：</td>
 								<td>
-									<input id = "inputid2" type="text" class="textinput" name="userName" onfocus = "prompt('fontid2')" onblur = "checkUserName('no')"/>
+									<input id = "inputid2" type="text" class="textinput" name="username" onfocus = "prompt('fontid2')" onblur = "checkUserName('no')"/>
 								</td>
 								<td><font id = "fontid2"color="#999999">用户名设置至少6位</font></td>
 							</tr>
@@ -292,7 +303,7 @@
 						<table width="80%" border="0" cellspacing="2" class="upline">
 							<tr>
 								<td style="text-align:right; width:20%">输入校验码：</td>
-								<td style="width:50%"><input id = "inputid5" type="text" name = "imagecode" class="textinput" onblur="checkvalidateCode(this)" onfocus="clearTip()"/>
+								<td style="width:50%"><input id = "validateId" type="text" name = "imagecode" class="textinput" onblur="checkvalidateCode(this,'no')" onfocus="clearTip()"/>
 								<span id="validateCodeMsg"></font></span>
 								</td>
 								<td>&nbsp;</td>
@@ -300,7 +311,7 @@
 							<tr>
 								<td style="text-align:right;width:20%;">&nbsp;</td>
 								<td colspan="2" style="width:50%"><img
-									src="${pageContext.request.contextPath}kaptcha/imageCode.do" width="180"
+									src="${pageContext.request.contextPath}/kaptcha/imageCode.do" width="180"
 									height="30" class="textinput" style="height:30px;" id="img" />&nbsp;&nbsp;
 									<a href="javascript:void(0);" onclick="changeImage()">看不清换一张</a>
 								</td>
