@@ -42,9 +42,15 @@ public class UserServiceImpl implements UserService {
         
     }
 
-    public User login(String username, String password) throws UserException {
-        // TODO Auto-generated method stub
-        return null;
+    public User login(User user) throws UserException {
+        User loginUser = null;
+        try {
+            loginUser = userMapper.findUserByUserNameAndPassword(user);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return loginUser;
     }
 
     public void modifyUserInfo(User loginUser) throws UserException {

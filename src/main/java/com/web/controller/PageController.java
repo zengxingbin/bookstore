@@ -13,7 +13,7 @@ public class PageController {
     }
     @RequestMapping("register")
     public String toRegister() {
-        return "register";
+        return "register3";
     }
     @RequestMapping("registersuccess")
     public String toRegisterSuccess() {

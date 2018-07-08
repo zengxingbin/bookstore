@@ -13,7 +13,7 @@
 	<%@include file="head.jsp"%>
 	<%@include file="menu_search.jsp" %>
 	<div id="divad">
-		<img src="${pageContext.request.contextPath }/ad/index_ad.jpg" />
+		<img src="${pageContext.request.contextPath}/ad/index_ad.jpg" />
 	</div>
 
 	<div id="divcontent">

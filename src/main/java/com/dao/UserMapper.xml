@@ -344,7 +344,7 @@
     WHERE id = #{id}
   </update>
 
-  <select id="findUserByUserNameAndPassword">
+  <select id="findUserByUserNameAndPassword" parameterType="com.domain.User" resultType="com.domain.User">
     SELECT * FROM USER WHERE username=#{username} AND PASSWORD=#{password}
   </select>
 

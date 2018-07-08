@@ -60,7 +60,7 @@ public interface UserMapper {
      * @return
      * @throws SQLException
      */
-    User findUserByUserNameAndPassword(@Param("username")String username, @Param("password")String password) throws SQLException;
+    User findUserByUserNameAndPassword(User user) throws SQLException;
 
     /**
      * 修改用户信息

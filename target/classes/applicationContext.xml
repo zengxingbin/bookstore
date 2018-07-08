@@ -48,7 +48,7 @@
 			<property name="basePackage" value="com.dao"></property>
 			<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 		</bean>
-		
+		<bean id="autoLoginFilter" class="com.web.filter.AutoLoginFilter"></bean>
 		<!-- 配置aop拦截service -->
 		<aop:config>
 			<aop:advisor advice-ref="txAdvice" pointcut="execution(* serviceimpl.*.*(..))"/>

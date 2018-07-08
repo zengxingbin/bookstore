@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
 		http://www.springframework.org/schema/mvc 
@@ -14,19 +16,24 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 	<!-- 扫描注解包 -->
-	<context:component-scan base-package="com.web.controller"></context:component-scan>
-	<!-- 配置注解处理器映射器 
-            功能：寻找执行类Controller
-        -->
-        <!--  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>-->
-    <!-- 配置注解处理器适配器 
-            功能：调用controller方法，执行controller
-        -->
-       <!--  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean>     -->
+	<context:component-scan
+		base-package="com.web.controller"></context:component-scan>
+	<!-- 配置注解处理器映射器 功能：寻找执行类Controller -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean> -->
+	<!-- 配置注解处理器适配器 功能：调用controller方法，执行controller -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean> -->
 	<!-- 默认配置注解的处理器映射器和处理器适配器,同时默认支持json格式的数据 -->
 	<mvc:annotation-driven />
-	
-	
+
+    <!-- 处理静态资源 -->
+    <!-- <mvc:default-servlet-handler/> -->
+    <mvc:resources location="/images/" mapping="/images/**" />
+    <mvc:resources location="/js/" mapping="/js/**" />
+    <mvc:resources location="/css/" mapping="/css/**" />
+    <mvc:resources location="/ad/" mapping="/ad/**"/>
+    <mvc:resources location="/bank_img/" mapping="/bank_img//**"/>
+    <mvc:resources location="/bookcover/" mapping="/bookcover/**"/>
+    <mvc:default-servlet-handler/>
 	<!-- 配置视图解析器 解析出真正的物理视图 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -39,38 +46,35 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10240000"></property>
 	</bean>
-	
+
 	<!-- 验证码 -->
-	<!-- google kaptcha的相关配置-->
-    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">  
-        <property name="config">  
-            <bean class="com.google.code.kaptcha.util.Config">  
-                <constructor-arg>  
-                    <props> 
-                        <!-- 是否有边框 可选yes 或者 no --> 
-                        <prop key="kaptcha.border">yes</prop>  
-                        <!-- 边框颜色 -->
-                        <prop key="kaptcha.border.color">105,179,90</prop>  
-                        <!-- 验证码文本字符颜色 -->
-                        <prop key="kaptcha.textproducer.font.color">blue</prop>  
-                        <!-- 验证码文本字符大小 -->
-                        <prop key="kaptcha.textproducer.font.size">45</prop>  
-                        <!-- 验证码图片的宽度 默认200 -->
-                        <prop key="kaptcha.image.width">125</prop>  
-                        <!-- 验证码图片的高度 默认50 -->
-                        <prop key="kaptcha.image.height">45</prop>  
-                        <!-- 验证码文本字符长度  默认为5 -->
-                        <prop key="kaptcha.textproducer.char.length">4</prop>  
-                        <!-- 验证码文本字体样式  默认为new Font("Arial", 1, fontSize), new Font("Courier", 1, fontSize)  -->
-                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>  
-                    </props>  
-                </constructor-arg>  
-            </bean>  
-        </property>  
-    </bean>
-    <!-- 处理静态资源 -->
-    <!-- <mvc:default-servlet-handler/> -->
-    <mvc:resources mapping="/css/**" location="/css/" />
-    <mvc:resources mapping="/images/**" location="/images/" />
-    <mvc:resources mapping="/js/**" location="/js/" />
+	<!-- google kaptcha的相关配置 -->
+	<bean id="captchaProducer"
+		class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<!-- 是否有边框 可选yes 或者 no -->
+						<prop key="kaptcha.border">yes</prop>
+						<!-- 边框颜色 -->
+						<prop key="kaptcha.border.color">105,179,90</prop>
+						<!-- 验证码文本字符颜色 -->
+						<prop key="kaptcha.textproducer.font.color">blue</prop>
+						<!-- 验证码文本字符大小 -->
+						<prop key="kaptcha.textproducer.font.size">45</prop>
+						<!-- 验证码图片的宽度 默认200 -->
+						<prop key="kaptcha.image.width">125</prop>
+						<!-- 验证码图片的高度 默认50 -->
+						<prop key="kaptcha.image.height">45</prop>
+						<!-- 验证码文本字符长度 默认为5 -->
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<!-- 验证码文本字体样式 默认为new Font("Arial", 1, fontSize), new Font("Courier", 
+							1, fontSize) -->
+						<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 </beans>

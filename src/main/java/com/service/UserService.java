@@ -26,7 +26,7 @@ public interface UserService {
 	 * @return 
 	 * @throws UserException 
 	 */
-	User login(String username, String password) throws UserException;
+	User login(User user) throws UserException;
 
 	/**
 	 * 修改用户信息

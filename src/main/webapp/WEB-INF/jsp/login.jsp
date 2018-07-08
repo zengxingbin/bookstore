@@ -6,6 +6,22 @@
 <title>电子书城</title>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/main.css" type="text/css" />
+<script type="text/javascript">
+    function clearTip() {
+    	var errorMsg = document.getElementById("errorMsg");
+    	errorMsg.innerHTML = "";
+    }
+    function formcheck() {
+    	var username = document.getElementsByName("username")[0];
+        var password = document.getElementsByName("password")[0];
+        var errorMsg = document.getElementById("errorMsg");
+        if(username.value == "" || password.value == "") { 
+            errorMsg.innerHTML = "用户名和密码不能为空！";
+            return false;
+        }
+        return true;
+    }
+</script>
 </head>
 
 <body class="main">
@@ -14,7 +30,7 @@
 	<jsp:include page="menu_search.jsp" />
 
 	<div id="divcontent">
-		<form action="${pageContext.request.contextPath }/user?method=login" method="post">
+		<form action="${pageContext.request.contextPath }/user/login.do" method="post">
 			<table width="900px" border="0" cellspacing="0">
 				<tr>
 					<td style="padding:30px"><div style="height:470px">
@@ -31,8 +47,8 @@
 														</td>
 													</tr>
 													<tr>
-														<td style="text-align:center;padding-top:20px;"><font
-															color="#ff0000">${requestScope["user_msg"]}</font>
+														<td style="text-align:center;padding-top:20px;"><font id="errorMsg"
+															color="#ff0000">${requestScope["errorMsg"]}</font>
 														</td>
 													</tr>
 													<tr>
@@ -43,20 +59,20 @@
 																	<td
 																		style="text-align:right; padding-top:5px; width:25%">用户名：</td>
 																	<td style="text-align:left"><input name="username"
-																		type="text" class="textinput" />
+																		type="text" value="${cookie.rememberUserName.value}" class="textinput" onfocus="clearTip()"/>
 																	</td>
 																</tr>
 																<tr>
 																	<td style="text-align:right; padding-top:5px">密&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
-																	<td style="text-align:left"><input name="password"
+																	<td style="text-align:left"><input name="password" value="${cookie.rememberPassword.value}"
 																		type="password" class="textinput" />
 																	</td>
 																</tr>
 																<tr>
-																	<td colspan="2" style="text-align:center"><input
-																		type="checkbox" name="checkbox" value="checkbox" />
-																		记住用户名&nbsp;&nbsp; <input type="checkbox"
-																		name="checkbox" value="checkbox" /> 自动登录</td>
+																	<td colspan="2" style="text-align:center"><input id="userCheckbox"
+																		type="checkbox" name="isRememberUsername" checked="${cookie.userNameCheck.value }"/>
+																		记住用户名和密码&nbsp;&nbsp; <input type="checkbox" id="loginCheckbox"
+																		name="isAutoLogin" checked="${cookie.autoLoginCheck.value }"/> 自动登录</td>
 																</tr>
 																<tr>
 																	<td colspan="2"

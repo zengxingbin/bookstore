@@ -26,7 +26,11 @@ public class User {
     private Date registtime;
 
     private String name;
-
+    public User() {}
+    public User(String username,String password) {
+        this.username = username;
+        this.password = password;
+    }
     public Integer getId() {
         return id;
     }
