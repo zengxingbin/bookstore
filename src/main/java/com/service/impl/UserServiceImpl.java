@@ -11,18 +11,20 @@ import com.domain.User;
 import com.exception.UserException;
 import com.service.UserService;
 import com.util.SendJMail;
+
 @Service
 public class UserServiceImpl implements UserService {
 
-    //private UserDao userDao = new UserDaoImpl();
+    // private UserDao userDao = new UserDaoImpl();
     @Resource
     private UserMapper userMapper;
 
     public void register(User newUser) throws UserException {
         try {
             userMapper.addUser(newUser);
-            String emailMsg = "注册成功,请<a href = 'http://localhost:8080/bookstore/user/activeUser.do?activeCode="+newUser.getActivecode()+"'>激活</a>后登录";
-            SendJMail.sendMail(newUser.getEmail(), emailMsg );
+            String emailMsg = "注册成功,请<a href = 'http://localhost:8080/bookstore/user/activeUser.do?activeCode="
+                    + newUser.getActivecode() + "'>激活</a>后登录";
+            SendJMail.sendMail(newUser.getEmail(), emailMsg);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -32,14 +34,14 @@ public class UserServiceImpl implements UserService {
     public void activerUser(String activeCode) throws UserException {
         try {
             User user = userMapper.findUserByActiveCode(activeCode);
-            if(user != null)
+            if (user != null)
                 userMapper.activeUser(user.getId());
-            else 
+            else
                 throw new UserException("用户激活失败");
         } catch (SQLException e) {
             throw new UserException("用户激活失败");
         }
-        
+
     }
 
     public User login(User user) throws UserException {
@@ -54,8 +56,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public void modifyUserInfo(User loginUser) throws UserException {
-        // TODO Auto-generated method stub
-        
+        try {
+            userMapper.modifyUserInfo(loginUser);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     public User findUserByEmail(String email) throws UserException {
@@ -79,6 +86,5 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
-    
 
 }

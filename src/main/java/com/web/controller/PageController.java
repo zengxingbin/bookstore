@@ -1,6 +1,7 @@
 package com.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -30,5 +31,17 @@ public class PageController {
     @RequestMapping("login")
     public String toLogin() {
         return "login";
+    }
+    @RequestMapping("myAccount")
+    public String toMyAccount() {
+        return "myAccount";
+    }
+    @RequestMapping("modifyUserInfo")
+    public String modifyUserInfo() {
+        return "modifyuserinfo";
+    }
+    @RequestMapping("modifyUserInfoSuccess")
+    public String modifyUserInfoSuccess() {
+        return "modifyUserInfoSuccess";
     }
 }

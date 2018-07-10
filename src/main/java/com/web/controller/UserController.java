@@ -169,7 +169,44 @@ public class UserController {
         }
         
     }
-
+    @RequestMapping(value="userInfo",method=RequestMethod.GET)
+    public String getUserInfo(HttpServletRequest request,
+            HttpServletResponse response) {
+        User user = (User)request.getSession().getAttribute("loginUser");
+        //判断是否已经登录
+        if(user == null) {//未登录
+            return "redirect:/page/login.do";
+        }else
+            return "forward:/page/myAccount.do";
+            
+    }
+    
+    @RequestMapping(value="modifyUserInfo",method=RequestMethod.POST)
+    public String modifyUserInfo(User user,HttpServletRequest request,HttpServletResponse response) {
+        try {
+            userService.modifyUserInfo(user);
+            User loginUser = (User) request.getSession().getAttribute("loginUser");
+            if(loginUser != null) {
+                request.getSession().removeAttribute("loginUser");
+                request.getSession().setAttribute("loginStatus", false);
+                //删除自动登录的cookie
+                Cookie[] cookies = request.getCookies();
+                for(Cookie cookie : cookies) {
+                    if("autoLogin".equals(cookie.getName())) {
+                        cookie.setMaxAge(0);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                        break;
+                    }
+                }
+            }
+            return "forward:/page/modifyUserInfoSuccess.do";
+        } catch (UserException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
     @RequestMapping("index")
     public String toIndex(ModelMap modelMap, HttpServletRequest request) {
         return "index";

@@ -14,7 +14,6 @@
 <script type="text/javascript">
 var interval;
 function startSecond() {
-    
     interval = window.setInterval("changeSecond()", 1000);
 
 };
@@ -27,8 +26,9 @@ function changeSecond() {
     svalue = svalue - 1;
     
     if (svalue == 0) {
+    	
         window.clearInterval(interval);
-        window.location.href = "${pageContext.request.contextPath }/page/index.do";
+        window.location.href = "${pageContext.request.contextPath}/page/index.do";
         return;
     }
 
@@ -55,7 +55,7 @@ function changeSecond() {
 							</td>
 							<td style="padding-top:30px"><font
 								style="font-weight:bold; color:#FF0000">注册成功,别忘记激活帐户啊</font><br />
-								<br /> <a href="${pageContext.request.contextPath }/index.jsp"><span id="second">5</span>秒后自动为您转跳回首页</a>
+								<br /> <a href="${pageContext.request.contextPath }/page/index.do"><span id="second">5</span>秒后自动为您转跳回首页</a>
 							</td>
 						</tr>
 					</table>

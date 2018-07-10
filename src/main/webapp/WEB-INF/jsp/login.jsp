@@ -70,9 +70,9 @@
 																</tr>
 																<tr>
 																	<td colspan="2" style="text-align:center"><input id="userCheckbox"
-																		type="checkbox" name="isRememberUsername" checked="${cookie.userNameCheck.value }"/>
+																		type="checkbox" name="isRememberUsername" />
 																		记住用户名和密码&nbsp;&nbsp; <input type="checkbox" id="loginCheckbox"
-																		name="isAutoLogin" checked="${cookie.autoLoginCheck.value }"/> 自动登录</td>
+																		name="isAutoLogin"/> 自动登录</td>
 																</tr>
 																<tr>
 																	<td colspan="2"

@@ -350,10 +350,10 @@
 
   <update id="modifyUserInfo" parameterType="com.domain.User">
     UPDATE `user` SET
-    PASSWORD=#{loginUser.password},
-    gender=#{loginUser.gender},
-    telephone=#{loginUser.telephone}
-    WHERE id=#{loginUser.id}
+    PASSWORD=#{password},
+    gender=#{gender},
+    telephone=#{telephone}
+    WHERE id=#{id}
   </update>
 
   <select id="findUserByEmail" parameterType="java.lang.String" resultType="com.domain.User">

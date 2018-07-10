@@ -70,7 +70,8 @@ public class AutoLoginFilter implements Filter {
                                 String[] values = valuesStr.split("&");
                                 try {
                                     loginUser = userService.login(new User(values[0], values[1]));
-                                    if(!"管理员".equals(loginUser.getRole())) {
+                                    
+                                    if(loginUser != null && !"管理员".equals(loginUser.getRole())) {
                                         session = httpRequest.getSession();
                                         session.setAttribute("loginStatus", "true");
                                         session.setAttribute("loginUser", loginUser);
