@@ -3,102 +3,111 @@
 	src="${pageContext.request.contextPath}/js/my.js">
 	
 </script>
+
+
 <script type="text/javascript">
-<!--
-	function fillNameValue(subDiv) {
-		document.getElementById("name").value = subDiv.innerHTML;
-		
-		document.getElementById("content").style.display="none";
+	
+	function createXMLHttpRequest() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		} else { // code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}		
+		return xmlhttp;
 	}
-
-	function searchName() {
-		var nameElement = document.getElementById("name");
-		//获取输入的信息
-		var nameValue = nameElement.value;
-
-		var div = document.getElementById("content");
-		div.innerHTML = "";
-		//1.获取XMLHttpRequest对象
-		var xmlhttp = getXMLHttpRequest();
-
-		//2.绑定回调函数
-		xmlhttp.onreadystatechange = function() {
-
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-				var jsonObj = eval("(" + xmlhttp.responseText + ")");
+	
+	function changeBackgroundColorByMouseOver(object) {
+		object.style.backgroundColor = "gray";
+	}
+	function changeBackgroundColorByMouseUp(object) {
+		object.style.backgroundColor = "white";
+	}
+	function searchName(object) {
+		 var bookList = document.getElementById("bookList");
+		if(object.value != "") {
+			// 创建XMLHttpRequest
+			var xmlhttp = getXMLHttpRequest();
+			// 注册事件处理函数
+			xmlhttp.onreadystatechange = function() {
 				
-				if(jsonObj.length>0){
-					document.getElementById("content").style.display="block";
-					for ( var i = 0; i < jsonObj.length; i++) {
-						div.innerHTML += "<div onclick='fillNameValue(this)' onmouseover='changeBackground_over(this)' onmouseout='changeBackground_out(this)'>"
-								+ jsonObj[i] + "</div>"
+				if(xmlhttp.readyState == 4) {
+					if(xmlhttp.status == 200) {
+						var bookListStr = xmlhttp.responseText;			
+						var innerHTML = "";
+						var books = eval("(" + bookListStr + ")");
+						for ( var i = 0; i < books.length; i++) {
+							innerHTML += "<div style='text-align: left; width: 100%; background-color: white;' onmouseover='changeBackgroundColorByMouseOver(this)' onmouseout='changeBackgroundColorByMouseUp(this)'>" + 
+											"<a href='${pageContext.request.contextPath }/book/searchBookByName.do?searchname="+ books[i] +"'>" + "<div>" +books[i] + "</div>" +"</a>" + 
+										 "</div>";
+						}
+						bookList.style.display = "block";
+						bookList.innerHTML = innerHTML;
+					} else {
+						alert("服务器繁忙，请稍后重试！（状态码：" + xmlhttp.status + "）");
 					}
-				}
-
-			}
-		};
-		//3.open
-		xmlhttp.open("GET",
-				"${pageContext.request.contextPath}/findProductName?name="
-						+ window.encodeURIComponent(nameValue, "utf-8")
-						+ "&time=" + new Date().getTime());
-		//4.send
-		xmlhttp.send(null);
-	};
-	
-	function changeBackground_over(div){
-		div.style.background="gray";
+					
+				} 
+			};
+			// 创建连接
+			var url = "${pageContext.request.contextPath }/book/searchBookName.do?echo=true&searchname=" + encodeURI(object.value) + "&time=" + new Date().toLocaleDateString();
+			xmlhttp.open("get",url);
+			xmlhttp.send(null);
+		} else {
+			bookList.style.display = "none";
+			bookList.innerHTML = "";	
+		}		 
 	}
-	
-	function changeBackground_out(div){
-		div.style.background="white";
+	function doSearch(object) {
+		if(object.value != "" && object.value != null)
+			searchName(object);
 	}
-//-->
 </script>
+
 
 <div id="divmenu">
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=文学">文学</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=文学">文学</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=生活">生活</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=生活">生活</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=计算机">计算机</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=计算机">计算机</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=外语">外语</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=外语">外语</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=经营">经管</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=经营">经管</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=励志">励志</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=励志">励志</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=社科">社科</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=社科">社科</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=学术">学术</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=学术">学术</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=少儿">少儿</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=少儿">少儿</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=艺术">艺术</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=艺术">艺术</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=原版">原版</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=原版">原版</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=科技">科技</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=科技">科技</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=考试">考试</a>
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=考试">考试</a>
 	<a
-		href="${pageContext.request.contextPath}/product?method=page&category=生活百科">生活百科</a>
-	<a href="${pageContext.request.contextPath}/product?method=page"
+		href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=生活百科">生活百科</a>
+	<a  href="${pageContext.request.contextPath}/book/searchBookByCategory.do?category=全部图书"
 		style="color:#FFFF00">全部商品目录</a>
 </div>
 <div id="divsearch">
-	<form action="${pageContext.request.contextPath}/findProductBySearch"
-		method="post">
+	<form action="${pageContext.request.contextPath}/book/searchBookByName.do"
+		method="get">
 		<table width="100%" border="0" cellspacing="0">
 			<tr>
+				<td><input type="hidden" name="action" value="searchBooks"/></td>
 				<td style="text-align:right; padding-right:220px">
 				Search <input
-					type="text" name="name" class="inputtable" onkeyup="searchName();"
-					id="name" /> 
-					<input type="image" src="images/serchbutton.gif"
+					type="text" name="searchname" class="inputtable"  onkeyup="doSearch(this)"
+					id="name" value="${page.searchName }"/> 
+					<input type="image" src="${pageContext.request.contextPath }/images/serchbutton.gif"
 					border="0" style="margin-bottom:-4px">
 				</td>
 			</tr>
@@ -106,6 +115,6 @@
 
 	</form>
 </div>
-<div id="content"
-	style="background-color:white;width:128px; text-align:left;margin-left:945px;color:black;float:left;margin-top: -20px;display: none">
+<div id="bookList" 
+	style="width: 128px; background-color: white; position: absolute; left: 950px; top: 134px; border: 10px, solid, blue; display: none;">
 </div>

@@ -6,7 +6,100 @@
 <title>电子书城</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/main.css" type="text/css" />
 </head>
+<script type="text/javascript">
+var pwdValidate = false;
+var rePwdValidate = false;
+function clearTip(fontid) {
+	var font = document.getElementById(fontid);
+	if(fontid == "pwdFontId") {
+		font.color = "#999999";
+		font.innerHTML = "密码设置至少6位，请区分大小写";
+	}
+	else {
+		font.innderHTML = "";
+	}
+} 
+//检查各输入是否为空
+function isEmpty(input,fontid) {
+    var font = document.getElementById(fontid);
+    if("" == input.value) {
+        if("pwdFontId"== fontid)
+            font.innerHTML = "密码不能为空！";
+        else if("rePwdFontId" == fontid)
+            font.innerHTML = "请确认密码密码！";
+        font.color = "red";
+        return true;
+    }
+    return false;
+}
+function checkPassword() {
+    var input = document.getElementById("pwdId");
+    var font = document.getElementById("pwdFontId");
+    
+    if(input.value == "")
+    {
+        /* if(submit == "submit") {
+            font.innerHTML = "密码不能为空！";
+            font.color = "red";
+        } */
+        pwdValidate = false;
+        return;
+    }
+    var regExpStr = "^[\\w\\d]{6,}$";
+    var regExp = new RegExp(regExpStr);
+    if(!regExp.test(input.value)) {
+        font.innerHTML = "密码格式错误！";
+        font.color = "red";
+        pwdValidate = false;
+    }else {
+        font.innerHTML = "密码格式正确！";
+        font.color = "green";
+        pwdValidate = true;
+    }
+}
+function checkRepassword() {
+    var input = document.getElementById("pwdId");
+    var input2 = document.getElementById("rePwdId");
+    var font = document.getElementById("rePwdFontId");
+    
+    if("" == input2.value) {
 
+        /* if(submit == "submit") {
+            font.innerHTML = "重复密码不能为空！";
+            font.color = "red";
+        } */
+        font.innerHTML = "";
+        rePwdValidate = false;
+        return;
+    }
+    /* if(input.value.length < 6) {
+        font.innerHTML = "密码格式错误！";
+        font.color = "red";
+        return false;
+    }  */
+    if(input.value != input2.value) {
+        font.innerHTML = "前后密码不一致！";
+        font.color = "red";
+        rePwdValidate = false;
+    }else {
+        font.innerHTML = "重复密码正确！";
+        font.color = "green";
+        rePwdValidate = true;
+    }
+        
+}
+function checkForm() {
+    var pwdInput = document.getElementById("pwdId");
+    var rePwdInput = document.getElementById("rePwdId");
+    
+    if(isEmpty(pwdInput,"pwdFontId"))
+        return false;
+    if(isEmpty(rePwdInput,"rePwdFontId"))
+    	return false;
+    return  pwdValidate && rePwdValidate;
+    
+}
+</script>
 <body class="main">
 	<jsp:include page="head.jsp" />
 
@@ -52,7 +145,7 @@
 					<table cellspacing="0" class="infocontent">
 						<tr>
 							<td>
-								<form action="${pageContext.request.contextPath }/user/modifyUserInfo.do" method="post">
+								<form action="${pageContext.request.contextPath }/user/modifyUserInfo.do" method="post" onsubmit="return checkForm()">
 									<input type="hidden" name="id" value="${loginUser.id}">
 									<table width="100%" border="0" cellspacing="2" class="upline">
 										<tr>
@@ -69,17 +162,17 @@
 										</tr>
 										<tr>
 											<td style="text-align:right">修改密码：</td>
-											<td><input type="password" name="password"
-												class="textinput" />
+											<td><input type="password" name="password" id="pwdId"
+												class="textinput" onblur="checkPassword()" onfocus="clearTip('pwdFontId')"/>
 											</td>
-											<td><font color="#999999">密码设置至少6位，请区分大小写</font>
+											<td><font color="#999999" id="pwdFontId">密码设置至少6位，请区分大小写</font>
 											</td>
 										</tr>
 										<tr>
 											<td style="text-align:right">重复密码：</td>
-											<td><input type="password" class="textinput" />
+											<td><input type="password" class="textinput" id="rePwdId" onblur="checkRepassword()" onfocus="clearTip('rePwdFontId')" />
 											</td>
-											<td>&nbsp;</td>
+											<td><font color="" id="rePwdFontId"></font></td>
 										</tr>
 										<tr>
 											<td style="text-align:right">性别：</td>

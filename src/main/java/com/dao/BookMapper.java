@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.domain.Orderitem;
+import com.domain.QueryCondition;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface BookMapper {
@@ -40,7 +42,7 @@ public interface BookMapper {
      * @throws SQLException
      */
     public Book queryBook(String isbn) throws SQLException;
-
+    public List<Book> queryBookByName(String name);
     /**
      * 获取所有的图书列表
      * @return
@@ -68,7 +70,7 @@ public interface BookMapper {
      * @return
      * @throws SQLException
      */
-    public List<Book> queryBooks002(@Param("beginIndex")int beginIndex, @Param("resultNumber")int resultNumber) throws SQLException;
+    public List<Book> queryBooksLimit(QueryCondition queryCondition) throws SQLException;
 
     /**
      *
@@ -136,8 +138,9 @@ public interface BookMapper {
      * @return
      * @throws SQLException
      */
-    public int count() throws SQLException;
-
+    public int countByName(String searchName) throws SQLException;
+    public int countAll();
+    public int countByCategory(String category);
     /**
      * 获取图书总数
      * @param isbn

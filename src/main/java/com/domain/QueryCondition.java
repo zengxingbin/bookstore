@@ -6,7 +6,8 @@ public class QueryCondition {
 	private String category;
 	private String minPrice;
 	private String maxPrice;
-	
+	private int beginIndex;
+	private int resultNumber;
 	
 	public String getBookIsbn() {
 		return bookIsbn;
@@ -39,7 +40,19 @@ public class QueryCondition {
 		this.maxPrice = maxPrice;
 	}
 	
-	@Override
+	public int getBeginIndex() {
+        return beginIndex;
+    }
+    public void setBeginIndex(int beginIndex) {
+        this.beginIndex = beginIndex;
+    }
+    public int getResultNumber() {
+        return resultNumber;
+    }
+    public void setResultNumber(int resultNumber) {
+        this.resultNumber = resultNumber;
+    }
+    @Override
 	public String toString() {
 		return "QueryCondition [bookIsbn=" + bookIsbn + ", name=" + name
 				+ ", category=" + category + ", minPrice=" + minPrice

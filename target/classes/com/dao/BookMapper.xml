@@ -263,8 +263,16 @@
     AND price &lt;= #{maxPrice};
   </select>
 
-    <select id="queryBooks002" resultType="com.domain.Book">
+    <select id="queryBooksLimit" parameterType="com.domain.QueryCondition" resultType="com.domain.Book">
     SELECT * FROM book
+    <where>
+        <if test="name != '' and name != null">
+            and name like '%${name}%'
+        </if>
+        <if test="category != '' and category != null">
+            and category = #{category}
+        </if>
+    </where>
     LIMIT #{beginIndex},#{resultNumber};
   </select>
 
@@ -277,7 +285,9 @@
     AND price &lt;= #{maxPrice}
     LIMIT #{beginIndex},#{resultNumber};
   </select>
-
+    <select id="queryBookByName" parameterType="java.lang.String" resultType="com.domain.Book">
+        select * from book where name like '%${value}%'
+    </select>
     <insert id="insertBook" parameterType="com.domain.Book">
     insert into book (isbn, name, price,
       pnum, category, description,
@@ -327,10 +337,17 @@
         where isbn = #{isbn,jdbcType=VARCHAR};
     </delete>
 
-    <select id="count" resultType="java.lang.Integer">
-        select count(*) from book
+    <select id="countByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from book where name like '%${value}%';
+        
     </select>
-
+    <select id="countByCategory" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from book where category = #{category}
+        
+    </select>
+    <select id="countAll"  resultType="java.lang.Integer">
+        select count(*) from book;
+    </select>
     <select id="count001" resultType="java.lang.Integer">
         SELECT count(*) from book
         WHERE isbn=#{isbn}

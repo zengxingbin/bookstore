@@ -44,4 +44,8 @@ public class PageController {
     public String modifyUserInfoSuccess() {
         return "modifyUserInfoSuccess";
     }
+    @RequestMapping("product_list")
+    public String toProduct_list() {
+        return "product_list";
+    }
 }
