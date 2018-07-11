@@ -116,5 +116,5 @@
 	</form>
 </div>
 <div id="bookList" 
-	style="width: 128px; background-color: white; position: absolute; left: 950px; top: 134px; border: 10px, solid, blue; display: none;">
+	style="width: 128px; background-color: white; position: absolute; left: 933px; top: 134px; border: 10px, solid, blue; display: none;">
 </div>

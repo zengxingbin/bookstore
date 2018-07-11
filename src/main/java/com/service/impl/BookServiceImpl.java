@@ -19,8 +19,8 @@ public class BookServiceImpl implements BookService {
     private BookMapper bookMapper;
 
     public Book getBook(String isbn) throws BookException {
-        // TODO Auto-generated method stub
-        return null;
+        Book book = bookMapper.selectByPrimaryKey(isbn);
+        return book;
     }
 
     public List<Book> getBooks() throws BookException {

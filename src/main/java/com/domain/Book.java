@@ -1,6 +1,7 @@
 package com.domain;
 
 public class Book {
+    private static final long serialVersionUID = 1L;
     private String isbn;
 
     private String name;
@@ -13,7 +14,7 @@ public class Book {
 
     private String description;
 
-    private String bookcoverpath;
+    private String bookCoverPath;
 
     public String getIsbn() {
         return isbn;
@@ -63,11 +64,34 @@ public class Book {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getBookcoverpath() {
-        return bookcoverpath;
+    public String getBookCoverPath() {
+        return bookCoverPath;
     }
 
-    public void setBookcoverpath(String bookcoverpath) {
-        this.bookcoverpath = bookcoverpath == null ? null : bookcoverpath.trim();
+    public void setBookCoverPath(String bookcoverpath) {
+        this.bookCoverPath = bookcoverpath == null ? null : bookcoverpath.trim();
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Book other = (Book) obj;
+        if (isbn == null) {
+            if (other.isbn != null)
+                return false;
+        } else if (!isbn.equals(other.isbn))
+            return false;
+        return true;
     }
 }

@@ -48,4 +48,16 @@ public class PageController {
     public String toProduct_list() {
         return "product_list";
     }
+    @RequestMapping("product_info")
+    public String toProduct_info() {
+        return "product_info";
+    }
+    @RequestMapping("cart")
+    public String toCart() {
+        return "cart";
+    }
+    @RequestMapping("order")
+    public String toOrder() {
+        return "order";
+    }
 }

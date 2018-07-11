@@ -24,7 +24,7 @@ public class SendJMail {
 
 		//设置邮件服务器的地址
 		props.setProperty("mail.transport.protocol", "smtp");//设置发送邮件使用的协议
-		props.setProperty("mail.smtp.host", "smtp.163.com"); // 指定的smtp服务器
+		props.setProperty("mail.smtp.host", "220.181.72.147"); // 指定的smtp服务器smtp.163.com
 		props.setProperty("mail.smtp.auth", "true");
 		//创建Session对象,session对象表示整个邮件的环境信息
 		Session session = Session.getInstance(props);

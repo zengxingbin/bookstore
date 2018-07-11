@@ -217,7 +217,8 @@ public class UserController {
         User loginUser = (User) request.getSession().getAttribute("loginUser");
         if(loginUser != null) {
             request.getSession().removeAttribute("loginUser");
-            request.getSession().setAttribute("loginStatus", false);
+            request.getSession().setAttribute("loginStatus", "false");
+            //request.getSession().removeAttribute("loginStatus");
             //删除自动登录的cookie
             Cookie[] cookies = request.getCookies();
             for(Cookie cookie : cookies) {
@@ -234,6 +235,7 @@ public class UserController {
 
     private void createCookie(HttpServletResponse response, int time, String name, String value, boolean condition) {
         Cookie cookie = new Cookie(name, value);
+        
         cookie.setPath("/");
         if (condition) {
             cookie.setMaxAge(time);

@@ -5,7 +5,7 @@
 <html>
 <head>
 <title>电子书城</title>
-<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/main.css" type="text/css" />
 </head>
 
 <body class="main">
@@ -20,8 +20,8 @@
 			<tr>
 
 				<td><div style="text-align:right; margin:5px 10px 5px 0px">
-						<a href="index.html">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;<a
-							href="product_list.html">&nbsp;计算机</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;Thinking In Java
+						<a href="${pageContext.request.contextPath }/page/index.do">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;<a
+							href="#">&nbsp;${book.category }</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;${book.name }
 					</div>
 
 
@@ -30,7 +30,7 @@
 
 					<table cellspacing="0" class="infocontent">
 						<tr>
-							<td><img src="ad/page_ad.jpg" width="645" height="84" />
+							<td><img src="${pageContext.request.contextPath }/ad/page_ad.jpg" width="645" height="84" />
 
 								<table width="100%%" border="0" cellspacing="0">
 									<tr>
@@ -38,32 +38,31 @@
 
 											<div class="divbookcover">
 												<p>
-													<img src="bookcover/${p.imgurl }"
-														width="213" height="269" border="0" />
+													<img src="${pageContext.request.contextPath }/upload/bookcover${book.bookCoverPath }" width="213" height="269" border="0" />
 												</p>
 											</div>
 
 											<div style="text-align:center; margin-top:25px">
-												<a href="${pageContext.request.contextPath }/addCartServlet?id=${p.id}">
-													<img src="images/buybutton.gif" border="0" /> 
+												<a href="${pageContext.request.contextPath }/book/addCart.do?isbn=${book.isbn }"> <img src="${pageContext.request.contextPath }/images/buybutton.gif" border="0" />
 												</a>
-											</div></td>
+											</div>
+										</td>
 										<td style="padding:20px 5px 5px 5px"><img
-											src="images/miniicon3.gif" width="16" height="13" /><font
-											class="bookname">&nbsp;&nbsp;${p.name }</font>
+											src="${pageContext.request.contextPath }/images/miniicon3.gif" width="16" height="13" /><font
+											class="bookname">&nbsp;&nbsp;${book.name }</font>
 
-											<hr />售价：<font color="#FF0000">${p.price}</font>
-											<hr /> 类别：${p.category }
+											<hr />售价：<font color="#FF0000">${book.price }</font>
+											<hr /> 类别：${book.category }
 
 											<hr />
 											<p>
 												<b>内容简介：</b>
-											</p> ${p.description}</td>
+											</p>${book.description }</td>
 									</tr>
-								</table></td>
+								</table>
+							</td>
 						</tr>
-					</table>
-				</td>
+					</table></td>
 			</tr>
 		</table>
 	</div>
