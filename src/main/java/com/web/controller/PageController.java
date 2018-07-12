@@ -64,4 +64,13 @@ public class PageController {
     public String toPay() {
         return "pay";
     }
+    @RequestMapping("orderList")
+    public String toOrderList() {
+        return "orderlist";
+    }
+    @RequestMapping("orderInfo")
+    public String toOrderInfo() {
+        return "orderInfo";
+    }
+    
 }

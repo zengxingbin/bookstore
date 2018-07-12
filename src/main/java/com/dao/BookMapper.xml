@@ -244,8 +244,7 @@
   </update>
 
     <select id="queryBook" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select
-        <include refid="Base_Column_List"/>
+        select *
         from book
         where isbn = #{isbn,jdbcType=VARCHAR}
     </select>
@@ -306,7 +305,10 @@
     update book
     set pnum = pnum - #{buynum} where isbn = #{book.isbn}
   </update>
-
+    <update id="updateBook2" parameterType="com.domain.OrderItem2">
+    update book
+    set pnum = pnum + #{buynum} where isbn = #{book.isbn}
+  </update>
     <update id="updateBooks001" parameterType="java.util.List">
         <foreach collection="list" item="bk">
             update book

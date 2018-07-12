@@ -2,6 +2,7 @@
 package com.dao;
 
 import com.domain.Order;
+import com.domain.OrderItem2;
 import com.domain.Orders;
 import com.domain.OrdersExample;
 
@@ -45,7 +46,7 @@ public interface OrdersMapper {
      * @return
      * @throws SQLException
      */
-    List<Orders> findOrdersByUserId(int id) throws SQLException;
+    List<Order> findOrdersByUserId(int id) throws SQLException;
 
     /**
      *
@@ -53,7 +54,7 @@ public interface OrdersMapper {
      * @return
      * @throws SQLException
      */
-    Orders findOrderByOrderId(String id) throws SQLException;
+    Order findOrderByOrderId(String orderId) throws SQLException;
 
     /**
      *
@@ -69,4 +70,6 @@ public interface OrdersMapper {
      * @throws SQLException
      */
     void modifyOrderPaystate(@Param("orderId")String orderId, @Param("paystate")int paystate) throws SQLException;
+
+    List<OrderItem2> findorderItemsByOrderId(String orderId);
 }

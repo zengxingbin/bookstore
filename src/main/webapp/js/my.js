@@ -32,3 +32,5 @@ function getXMLHttpRequest() {
 	return xmlhttp;
 
 }
+
+

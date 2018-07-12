@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
 <head>
 <title>电子书城</title>
-<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/main.css" type="text/css" />
 </head>
 
 
@@ -18,7 +18,7 @@
 			<tr>
 
 				<td><div style="text-align:right; margin:5px 10px 5px 0px">
-						<a href="index.jsp">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;;订单详细信息
+						<a href="${pageContext.request.contextPath }/page/index.do">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;订单详细信息
 					</div>
 
 
@@ -43,25 +43,26 @@
 
 												</tr>
 											</table>
-			
-										<c:forEach items = "${order.orderItems }" var = "o" varStatus = "vs">
+											<c:set var="total" value="0"></c:set>
 											<table width="100%" border="0" cellspacing="0">
-												<tr>
-													<td width="10%">${vs.count }</td>
-													<td width="40%">${o.product.name }</td>
-													<td width="10%">${o.product.price  }</td>
-													<td width="10%">${o.pnum }</td>
-													<td width="10%">${o.product.price*o.pnum }</td>
-
-												</tr>
+												<c:forEach var="orderItem" items="${order.orderItems }" varStatus="vs">
+													<tr>
+														<td width="10%">${vs.count }</td>
+														<td width="40%">${orderItem.book.name }</td>
+														<td width="10%">${orderItem.book.price }</td>
+														<td width="10%">${orderItem.buynum }</td>
+														<td width="10%">${orderItem.book.price * orderItem.buynum }</td>
+													</tr>
+													
+													<c:set var="total" value="${total + orderItem.book.price * orderItem.buynum }"></c:set>
+												</c:forEach>
 											</table>
 										
-										</c:forEach>
 
 											<table cellspacing="1" class="carttable">
 												<tr>
 													<td style="text-align:right; padding-right:40px;"><font
-														style="color:#FF0000">合计：&nbsp;&nbsp;${order.money}</font></td>
+														style="color:#FF0000">合计：&nbsp;&nbsp;${total }</font></td>
 												</tr>
 											</table>
 
@@ -73,8 +74,7 @@
 											</p>
 											<hr>
 											<p style="text-align:right">
-											
-												<a href="${pageContext.request.contextPath }/order?method=findOrderById&orderid=${order.id}"><img src="images/gif53_029.gif" width="204"
+												<a href="${pageContext.request.contextPath }/order/pay.do?orderId=${order.id}"><img src="${pageContext.request.contextPath }/images/gwc_buy.gif" width="204"
 													height="51" border="0" /> </a>
 											</p>
 										</td>

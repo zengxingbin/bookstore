@@ -265,18 +265,19 @@
     #{ordertime,jdbcType=TIMESTAMP}, #{user.id,jdbcType=INTEGER})
   </insert>
 
-  <select id="findOrdersByUserId" parameterType="int" resultType="com.domain.Orders">
+  <select id="findOrdersByUserId" parameterType="java.lang.Integer" resultType="com.domain.Order">
     SELECT * FROM orders
     WHERE user_id = #{id}
   </select>
 
-  <select id="findOrderByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
+  <select id="findOrderByOrderId" parameterType="java.lang.String" resultType="com.domain.Order" >
+    select *
     from orders
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{orderId}
   </select>
-
+    <select id="findorderItemsByOrderId" parameterType="java.lang.String" resultType="com.domain.OrderItem2">
+        select * from orderitem where order_id = #{orderId}
+    </select>
   <delete id="deleteOrder" parameterType="java.lang.String" >
     delete from orders
     where id = #{id,jdbcType=VARCHAR}

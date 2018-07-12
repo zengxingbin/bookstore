@@ -26,6 +26,7 @@ import com.domain.Orders;
 import com.domain.User;
 import com.exception.OrderException;
 import com.service.OrderService;
+import com.service.impl.OrderServiceImpl;
 
 @Controller
 @RequestMapping("/order")
@@ -85,6 +86,68 @@ public class OrderController {
         }
         return "forward:/page/pay.do";
     
+    }
+    @RequestMapping("findOrders.do")
+    public String orderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User loginUser = (User) request.getSession().getAttribute("loginUser");
+        try {
+            List<Order> orders = orderService.findOrdersByUserId(loginUser.getId());
+            request.setAttribute("orders", orders);
+            //request.getRequestDispatcher("/orderlist.jsp").forward(request, response);
+        } catch (OrderException e) {
+            e.printStackTrace();
+        }
+        return "forward:/page/orderList.do";
+        
+    }
+    @RequestMapping("findOrderInformation")
+    public String orderInformation(HttpServletRequest request, HttpServletResponse response) {
+        String orderId = request.getParameter("orderId");
+        if(orderId != null) {
+            try {
+                Order order = orderService.findOrderByOrderId(orderId);
+                if(order != null) {
+                    request.setAttribute("order", order);
+                    //request.getRequestDispatcher("/orderInfo.jsp").forward(request, response);
+                } else { // 订单已失效
+                    
+                }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "forward:/page/orderInfo.do";
+    }
+    @RequestMapping("pay")
+    public String payOrder(HttpServletRequest request, HttpServletResponse response) {
+        String orderId = request.getParameter("orderId");
+        if(orderId != null) {
+            try {
+                Order order = orderService.findOrderByOrderId(orderId);
+                if(order != null) {
+                    request.setAttribute("order", order);
+                    //request.getRequestDispatcher("/orderInfo.jsp").forward(request, response);
+                } else { // 订单已失效
+                    
+                }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "forward:/page/pay.do";
+    }
+    @RequestMapping("deleteOrder")
+    public void deleteOrder(HttpServletRequest request, HttpServletResponse response) {
+        String orderId = request.getParameter("orderId");
+        if(orderId != null) {
+            try {
+                orderService.deleteOrder(orderId);
+            } catch (OrderException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
     

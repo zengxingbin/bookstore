@@ -21,7 +21,7 @@ public interface OrderService {
 	 * @return
 	 * @throws OrderException 
 	 */
-	List<Orders> findOrdersByUserId(int id) throws OrderException;
+	List<Order> findOrdersByUserId(int id) throws OrderException;
 
 	/**
 	 * 根据订单ID查找订单
@@ -29,7 +29,7 @@ public interface OrderService {
 	 * @return
 	 * @throws OrderException 
 	 */
-	Orders findOrderByOrderId(String orderId) throws OrderException;
+	Order findOrderByOrderId(String orderId) throws OrderException;
 
 	/**
 	 * 删除订单

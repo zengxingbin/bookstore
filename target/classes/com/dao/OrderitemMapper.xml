@@ -1,198 +1,217 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dao.OrderitemMapper" >
-  <resultMap id="BaseResultMap" type="com.domain.Orderitem" >
-    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
-    <id column="book_isbn" property="bookIsbn" jdbcType="VARCHAR" />
-    <result column="buynum" property="buynum" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    order_id, book_isbn, buynum
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.domain.OrderitemExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from orderitem
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.domain.OrderitemKey" >
-    select 
-    <include refid="Base_Column_List" />
-    from orderitem
-    where order_id = #{orderId,jdbcType=VARCHAR}
-      and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.domain.OrderitemKey" >
-    delete from orderitem
-    where order_id = #{orderId,jdbcType=VARCHAR}
-      and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.domain.OrderitemExample" >
-    delete from orderitem
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.domain.Orderitem" >
-    insert into orderitem (order_id, book_isbn, buynum
-      )
-    values (#{orderId,jdbcType=VARCHAR}, #{bookIsbn,jdbcType=VARCHAR}, #{buynum,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.domain.Orderitem" >
-    insert into orderitem
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="bookIsbn != null" >
-        book_isbn,
-      </if>
-      <if test="buynum != null" >
-        buynum,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="bookIsbn != null" >
-        #{bookIsbn,jdbcType=VARCHAR},
-      </if>
-      <if test="buynum != null" >
-        #{buynum,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.domain.OrderitemExample" resultType="java.lang.Integer" >
-    select count(*) from orderitem
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update orderitem
-    <set >
-      <if test="record.orderId != null" >
-        order_id = #{record.orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bookIsbn != null" >
-        book_isbn = #{record.bookIsbn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.buynum != null" >
-        buynum = #{record.buynum,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update orderitem
-    set order_id = #{record.orderId,jdbcType=VARCHAR},
-      book_isbn = #{record.bookIsbn,jdbcType=VARCHAR},
-      buynum = #{record.buynum,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.domain.Orderitem" >
-    update orderitem
-    <set >
-      <if test="buynum != null" >
-        buynum = #{buynum,jdbcType=INTEGER},
-      </if>
-    </set>
-    where order_id = #{orderId,jdbcType=VARCHAR}
-      and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.domain.Orderitem" >
-    update orderitem
-    set buynum = #{buynum,jdbcType=INTEGER}
-    where order_id = #{orderId,jdbcType=VARCHAR}
-      and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
-  </update>
+<mapper namespace="com.dao.OrderitemMapper">
+	<resultMap id="BaseResultMap" type="com.domain.Orderitem">
+		<id column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<id column="book_isbn" property="bookIsbn" jdbcType="VARCHAR" />
+		<result column="buynum" property="buynum" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		order_id, book_isbn, buynum
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.domain.OrderitemExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from orderitem
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="com.domain.OrderitemKey">
+		select
+		<include refid="Base_Column_List" />
+		from orderitem
+		where order_id = #{orderId,jdbcType=VARCHAR}
+		and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="com.domain.OrderitemKey">
+		delete from orderitem
+		where order_id = #{orderId,jdbcType=VARCHAR}
+		and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.domain.OrderitemExample">
+		delete from orderitem
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.domain.Orderitem">
+		insert into orderitem (order_id, book_isbn, buynum
+		)
+		values (#{orderId,jdbcType=VARCHAR}, #{bookIsbn,jdbcType=VARCHAR},
+		#{buynum,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.domain.Orderitem">
+		insert into orderitem
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="bookIsbn != null">
+				book_isbn,
+			</if>
+			<if test="buynum != null">
+				buynum,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="bookIsbn != null">
+				#{bookIsbn,jdbcType=VARCHAR},
+			</if>
+			<if test="buynum != null">
+				#{buynum,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.domain.OrderitemExample"
+		resultType="java.lang.Integer">
+		select count(*) from orderitem
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update orderitem
+		<set>
+			<if test="record.orderId != null">
+				order_id = #{record.orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.bookIsbn != null">
+				book_isbn = #{record.bookIsbn,jdbcType=VARCHAR},
+			</if>
+			<if test="record.buynum != null">
+				buynum = #{record.buynum,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update orderitem
+		set order_id = #{record.orderId,jdbcType=VARCHAR},
+		book_isbn = #{record.bookIsbn,jdbcType=VARCHAR},
+		buynum = #{record.buynum,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.domain.Orderitem">
+		update orderitem
+		<set>
+			<if test="buynum != null">
+				buynum = #{buynum,jdbcType=INTEGER},
+			</if>
+		</set>
+		where order_id = #{orderId,jdbcType=VARCHAR}
+		and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.domain.Orderitem">
+		update orderitem
+		set buynum = #{buynum,jdbcType=INTEGER}
+		where order_id = #{orderId,jdbcType=VARCHAR}
+		and book_isbn = #{bookIsbn,jdbcType=VARCHAR}
+	</update>
 
 
-  <insert id="addOrderItems" parameterType="com.domain.OrderItem2">
-    INSERT INTO orderitem VALUES (#{order.id},#{book.isbn},#{buynum})
-   
-  </insert>
+	<insert id="addOrderItem" parameterType="com.domain.OrderItem2">
+		INSERT INTO orderitem VALUES (#{order.id},#{book.isbn},#{buynum})
 
-  <select id="findorderItemDaosByOrderId" parameterType="java.lang.String" resultType="java.util.HashMap">
-    SELECT book_isbn, buynum
-    FROM orderitem
-    WHERE order_id=#{id}
-  </select>
+	</insert>
 
-  <delete id="deleteOrderItem" parameterType="java.lang.String">
-    DELETE FROM orderitem
-    WHERE order_id=#{orderId}
-  </delete>
+	<select id="findorderItemDaosByOrderId"
+		parameterType="java.lang.String" resultType="java.util.HashMap">
+		SELECT book_isbn, buynum
+		FROM orderitem
+		WHERE order_id=#{id}
+	</select>
+	<select id="findorderItemsByOrderId" parameterType="java.lang.String" resultType="com.domain.OrderItem2">
+        select * from orderitem where order_id=#{orderId}
+	</select>
+	<delete id="deleteOrderItem" parameterType="java.lang.String">
+		DELETE FROM orderitem
+		WHERE order_id=#{orderId}
+	</delete>
 </mapper>

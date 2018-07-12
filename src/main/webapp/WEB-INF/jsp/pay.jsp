@@ -17,7 +17,7 @@
 <body>
 	<form action="${pageContext.request.contextPath }/payServlet" method="post">
 		订单号：<INPUT TYPE="text" NAME="orderid" value="${order.id }"> 支付金额：<INPUT
-			TYPE="text" NAME="money" value="0.01">元
+			TYPE="text" NAME="money" value="${order.money }">元
 		<div class="divBank">
 			<div class="divText">选择网上银行</div>
 			<div style="margin-left: 20px;">
