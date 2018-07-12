@@ -1,5 +1,7 @@
 package com.dao;
 
+import com.domain.Order;
+import com.domain.OrderItem2;
 import com.domain.Orderitem;
 import com.domain.OrderitemExample;
 import com.domain.OrderitemKey;
@@ -35,10 +37,10 @@ public interface OrderitemMapper {
 
     /**
      * 添加的订单项
-     * @param orderItems
+     * @param orderItem
      * @throws SQLException
      */
-    void addOrderItems(List<Orderitem> orderItems) throws SQLException;
+    void addOrderItem(OrderItem2 orderItem) throws SQLException;
 
     /**
      *
@@ -54,4 +56,6 @@ public interface OrderitemMapper {
      * @throws SQLException
      */
     void deleteOrderItem(String orderId) throws SQLException;
+
+
 }

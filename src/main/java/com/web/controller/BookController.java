@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.dao.BookMapper;
 import com.domain.Book;
 import com.domain.Page;
+import com.domain.User;
 import com.exception.BookException;
 import com.service.BookService;
 import com.service.impl.BookServiceImpl;
@@ -176,8 +177,10 @@ public class BookController {
     public String addCart(String isbn, HttpSession session) {
         Book book = new Book();
         book.setIsbn(isbn);
-        Map<Book, Integer> cart = (Map<Book, Integer>) session.getAttribute("cart");
-
+        User user = (User) session.getAttribute("loginUser");
+       
+        Map<Book, Integer> cart =  (Map<Book, Integer>) session.getAttribute("cart");
+        
         try {
             doAddCart(session, cart, book);
         } catch (BookException e) {

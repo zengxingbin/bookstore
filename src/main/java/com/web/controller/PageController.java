@@ -60,4 +60,8 @@ public class PageController {
     public String toOrder() {
         return "order";
     }
+    @RequestMapping("pay")
+    public String toPay() {
+        return "pay";
+    }
 }

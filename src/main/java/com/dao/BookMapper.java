@@ -2,6 +2,8 @@ package com.dao;
 
 import com.domain.Book;
 import com.domain.BookExample;
+import com.domain.Order;
+import com.domain.OrderItem2;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -109,7 +111,7 @@ public interface BookMapper {
      * @return
      * @throws SQLException
      */
-    public void updateBook(Book newBook) throws SQLException;
+    public void updateBook(OrderItem2 orderItem) throws SQLException;
 
     /**
      *

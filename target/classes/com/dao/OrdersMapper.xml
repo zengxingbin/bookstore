@@ -256,13 +256,13 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
-  <insert id="addOder" parameterType="com.domain.Orders" >
+  <insert id="addOder" parameterType="com.domain.Order" >
     insert into orders (id, money, receiverAddress,
     receiverName, receiverPhone, paystate,
     ordertime, user_id)
-    values (#{id,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{receiveraddress,jdbcType=VARCHAR},
-    #{receivername,jdbcType=VARCHAR}, #{receiverphone,jdbcType=VARCHAR}, #{paystate,jdbcType=INTEGER},
-    #{ordertime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER})
+    values (#{id,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{receiverAddress,jdbcType=VARCHAR},
+    #{receiverName,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, #{paystate,jdbcType=INTEGER},
+    #{ordertime,jdbcType=TIMESTAMP}, #{user.id,jdbcType=INTEGER})
   </insert>
 
   <select id="findOrdersByUserId" parameterType="int" resultType="com.domain.Orders">

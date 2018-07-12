@@ -1,6 +1,7 @@
 
 package com.dao;
 
+import com.domain.Order;
 import com.domain.Orders;
 import com.domain.OrdersExample;
 
@@ -36,7 +37,7 @@ public interface OrdersMapper {
      * @param order
      * @throws SQLException
      */
-    void addOder(Orders order) throws SQLException;
+    void addOder(Order order) throws SQLException;
 
     /**
      *

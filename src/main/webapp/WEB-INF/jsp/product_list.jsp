@@ -52,7 +52,7 @@
 																<td align="center">	
 																	<div class="divbookpic">
 																		<p>
-																			<a href="${pageContext.request.contextPath }/book/showBookInformation.do?isbn=${page.books[index].isbn }"><img src="${pageContext.request.contextPath }/upload/bookcover${page.books[index].bookCoverPath }" width="115" height="129"
+																			<a href="${pageContext.request.contextPath }/book/showBookInformation.do?isbn=${page.books[index].isbn }"><img src="http://47.106.66.201:8080/bookManager/upload/${page.books[index].bookCoverPath }" width="115" height="129"
                                                                                 border="0" /> </a>
 																		</p>
 																	</div>

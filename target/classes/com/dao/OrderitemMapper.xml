@@ -180,11 +180,9 @@
   </update>
 
 
-  <insert id="addOrderItems" parameterType="java.util.List">
-    INSERT INTO orderitem VALUES(buynum)
-    <foreach collection="list" item="item">
-      (#{bookInfo},#{bookIsbn},#{buynum})
-    </foreach>
+  <insert id="addOrderItems" parameterType="com.domain.OrderItem2">
+    INSERT INTO orderitem VALUES (#{order.id},#{book.isbn},#{buynum})
+   
   </insert>
 
   <select id="findorderItemDaosByOrderId" parameterType="java.lang.String" resultType="java.util.HashMap">

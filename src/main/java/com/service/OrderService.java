@@ -2,6 +2,7 @@ package com.service;
 
 import java.util.List;
 
+import com.domain.Order;
 import com.domain.Orders;
 import com.exception.OrderException;
 
@@ -12,7 +13,7 @@ public interface OrderService {
 	 * @param order
 	 * @throws OrderException 
 	 */
-	void addOrder(Orders order) throws OrderException;
+	void createOrder(Order order) throws OrderException;
 
 	/**
 	 * 查找用户订单
