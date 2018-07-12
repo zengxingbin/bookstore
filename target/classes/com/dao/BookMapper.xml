@@ -8,7 +8,7 @@
         <result column="pnum" property="pnum" jdbcType="INTEGER"/>
         <result column="category" property="category" jdbcType="VARCHAR"/>
         <result column="description" property="description" jdbcType="VARCHAR"/>
-        <result column="bookCoverPath" property="bookcoverpath" jdbcType="VARCHAR"/>
+        <result column="bookCoverPath" property="bookCoverPath" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -87,9 +87,8 @@
             order by ${orderByClause}
         </if>
     </select>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select
-        <include refid="Base_Column_List"/>
+    <select id="selectByPrimaryKey" resultType="com.domain.Book" parameterType="java.lang.String">
+        select * 
         from book
         where isbn = #{isbn,jdbcType=VARCHAR}
     </select>
@@ -243,7 +242,7 @@
     where isbn = #{isbn,jdbcType=VARCHAR}
   </update>
 
-    <select id="queryBook" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="queryBook" resultType="com.domain.Book" parameterType="java.lang.String">
         select *
         from book
         where isbn = #{isbn,jdbcType=VARCHAR}

@@ -38,7 +38,7 @@
 
 											<div class="divbookcover">
 												<p>
-													<img src="${pageContext.request.contextPath }/upload/bookcover${book.bookCoverPath }" width="213" height="269" border="0" />
+													<img src="http://47.106.66.201:8080/bookManager/upload/${book.bookCoverPath }" width="213" height="269" border="0" />
 												</p>
 											</div>
 

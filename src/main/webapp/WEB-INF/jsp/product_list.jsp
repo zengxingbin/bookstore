@@ -101,7 +101,7 @@
                                                     </c:if>
 			
 													<li class="nextPage"><a href="${pageContext.request.contextPath }/book/changePage.do?nextPage=true">下一页&gt;&gt;</a></li>
-			                                        <li>第${page.currentPage }页/共${page.pageNumber }页</li>
+			                                        <li>第<c:if test="${page.pageNumber == 0 }">0</c:if><c:if test="${page.pageNumber != 0 }">${page.currentPage }</c:if>页/共${page.pageNumber }页</li>
 												</ul>
 											</div>
 										</td>
