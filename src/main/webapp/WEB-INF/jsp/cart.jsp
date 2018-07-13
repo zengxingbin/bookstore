@@ -66,14 +66,15 @@
 		xmlhttp.open("get", url);
 		xmlhttp.send(null);	
 	}
-    function checkOrder(cart) {
+    function checkOrder() {
+    	var total = document.getElementById("total");
     	var value = "${loginStatus}";
         var loginUser = "${loginUser}";
-        if(value != "true") {
+        if(value != "true" || loginUser == "") {
         	window.location.href = "${pageContext.request.contextPath}/page/login.do";
             return;
         }
-    	if(cart == "" || cart.length == 2) {
+    	if(total.innerHTML == "0" || total.innerHTML == "0.0") {
     		alert("购物车为空！")
     		return;
     	}
@@ -155,8 +156,8 @@
 
 											<table cellspacing="1" class="carttable">
 												<tr>
-													<td style="text-align:right; padding-right:40px;"><font id="total"
-														style="color:#FF6600; font-weight:bold">合计：&nbsp;&nbsp;${total}元</font>
+													<td style="text-align:right; padding-right:40px;"><font 
+														style="color:#FF6600; font-weight:bold">合计：&nbsp;&nbsp;<font id="total">${total}</font>元</font>
 													</td>
 												</tr>
 											</table>
@@ -166,7 +167,7 @@
 													src="${pageContext.request.contextPath }/images/gwc_jx.gif" border="0" /> </a>
 
 												&nbsp;&nbsp;&nbsp;&nbsp;<a
-													href="javascript:void(0);" onclick="checkOrder('${cart}')"><img
+													href="javascript:void(0);" onclick="checkOrder()"><img
 													src="${pageContext.request.contextPath }/images/gif53_029.gif" border="0" /> </a>
 											</div>
 										</td>

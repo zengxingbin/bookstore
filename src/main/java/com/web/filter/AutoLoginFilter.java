@@ -55,6 +55,7 @@ public class AutoLoginFilter implements Filter {
         urlPatterns.add("/page/index.do");
         urlPatterns.add("/page/product_info.do");
         urlPatterns.add("/page/product_list.do");
+        urlPatterns.add("/page/myAccount.do");
         if(urlPatterns.indexOf(urlPattern) != -1) {
             HttpSession session = httpRequest.getSession();
             Object loginStatus = session.getAttribute("loginStatus");

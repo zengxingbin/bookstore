@@ -181,7 +181,7 @@ public class UserController {
             
     }
     
-    @RequestMapping(value="modifyUserInfo",method=RequestMethod.POST)
+    @RequestMapping(value="modifyUserInfo")
     public String modifyUserInfo(User user,HttpServletRequest request,HttpServletResponse response) {
         try {
             userService.modifyUserInfo(user);

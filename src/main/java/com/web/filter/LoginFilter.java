@@ -48,23 +48,26 @@ public class LoginFilter implements Filter {
         urlPatterns.add("/user/modifyUserInfo.do");
         urlPatterns.add("/page/modifyUserInfo.do");
         urlPatterns.add("/page/modifyUserInfoSuccess.do");
-        urlPatterns.add("/background");
-        urlPatterns.add("/modifyuserinfo.jsp");
+        urlPatterns.add("/page/order.do");
+        urlPatterns.add("/order/findOrders.do");
+        urlPatterns.add("/order/findOrderInformation.do");
+        urlPatterns.add("/order/deleteOrder.do");
+        urlPatterns.add("/order/pay.do");
         if(urlPatterns.indexOf(urlPattern) != -1) {
             User loginUser = (User) httpRequest.getSession().getAttribute("loginUser");
-            if("/user/userInfo.do".equals(urlPattern) || "/user/modifyUserInfo.do".equals(urlPattern) 
-                    || "/page/modifyUserInfo.do".equals(urlPattern) || "/page/modifyUserInfoSuccess.do".equals(urlPattern)) {
+            boolean condition = "/user/userInfo.do".equals(urlPattern) || "/user/modifyUserInfo.do".equals(urlPattern) 
+                    || "/page/modifyUserInfo.do".equals(urlPattern) || "/page/modifyUserInfoSuccess.do".equals(urlPattern)
+                    ||"/order/findOrders.do".equals(urlPattern)||"/order/findOrderInformation.do".equals(urlPattern)
+                    ||"/order/deleteOrder.do".equals(urlPattern)||"/order/pay.do".equals(urlPattern);
+                    
+            if(condition) {
                 
                     if(loginUser == null) {
-                        httpResponse.sendRedirect(httpRequest.getContextPath() + "/page/login。do");
+                        String url = httpRequest.getContextPath() + "/page/login.do";
+                        httpResponse.sendRedirect(url);
                         return;
                     }
                 
-            } else if("/background".equals(urlPattern)) {
-                if(loginUser == null || !"管理员".equals(loginUser.getRole())) {
-                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
-                    return;
-                }
             } else {
                 if(loginUser == null) {
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");

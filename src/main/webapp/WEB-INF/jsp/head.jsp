@@ -23,7 +23,7 @@ window.onload = function() {
     var font = document.getElementById("fontId");
     var userFont = document.getElementById("userFont");
     var userSpan = document.getElementById("userId");
-	if(value == "true") {
+	if(value == "true" && loginUser != "") {
 		registerLink.hidden = "true";
 		loginLink.hidden = "true";
 		font.hidden = "true";

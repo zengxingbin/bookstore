@@ -122,7 +122,7 @@ function checkForm() {
 
 						<tr>
 							<td class="listtd"><img src="${pageContext.request.contextPath }/images/miniicon.gif" width="9"
-								height="6" />&nbsp;&nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath }/order?method=findOrdersByUserid">订单查询</a>
+								height="6" />&nbsp;&nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath }/order/findOrders.do">订单查询</a>
 							</td>
 						</tr>
 
