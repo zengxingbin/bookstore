@@ -26,6 +26,7 @@ public class SendJMail {
 		props.setProperty("mail.transport.protocol", "smtp");//设置发送邮件使用的协议
 		props.setProperty("mail.smtp.host", "220.181.72.147"); // 指定的smtp服务器smtp.163.com
 		props.setProperty("mail.smtp.auth", "true");
+		props.setProperty("mail.smtp.ssl.enable", "true");
 		//创建Session对象,session对象表示整个邮件的环境信息
 		Session session = Session.getInstance(props);
 		//设置输出调试信息
@@ -43,7 +44,7 @@ public class SendJMail {
 			//从session的环境中获取发送邮件的对象
 			Transport transport=session.getTransport();
 			//连接邮件服务器
-			transport.connect("smtp.163.com",25, username, password);
+			transport.connect("smtp.163.com",465, username, password);
 			//设置收件人地址,并发送消息
 			transport.sendMessage(message,new Address[]{new InternetAddress(to)});
 			transport.close();
